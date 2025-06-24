@@ -1,109 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="app.css" />
-<script src="app.js" defer></script>
-
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday, Bannu!</title>
-  <style>
-    body { margin: 0; overflow: hidden; background: #222; }
-    #card {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: #fff; border-radius: 10px; padding: 20px;
-      width: 80%; max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      transition: transform 1s ease;
-    }
-    #card.show { transform: translate(-50%, -50%) scale(1); }
-    #card h1 { margin: 0; font-size: 24px; }
-    #card p { font-size: 18px; margin-top: 10px; }
-  </style>
+  <link rel="stylesheet" href="app.css" />
+  <script src="app.js" defer></script>
 </head>
 <body>
   <div id="card">
     <h1>Happiest Birthday, Bannu! ❤️</h1>
-    <p>Happiest Birthday my chelamm ❤️ epadiey happy ha eru 🫂 yepavum nan erupan love uhh ❤️</p>
-    <p><em>With all my love, Balaji</em></p>
+    <p>Happiest Birthday my chelamm ❤️ epadiey happy ha eru 🫂 yepavum nan erupan</p>
+    <p><em>With all my love, Balaji ❤️</em></p>
   </div>
-  <audio id="bgm" src="3_movie_bgm.mp3" loop></audio>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-  <script>
-    let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
-    let renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setSize(innerWidth, innerHeight);
-    document.body.appendChild(renderer.domElement);
-    let light = new THREE.PointLight(0xffffff, 1);
-    light.position.set(5, 10, 7);
-    scene.add(light);
-
-    // Cake Body
-    let cakeGeo = new THREE.CylinderGeometry(3, 3, 1.5, 32);
-    let cakeMat = new THREE.MeshPhongMaterial({color: 0xffd1dc});
-    let cake = new THREE.Mesh(cakeGeo, cakeMat);
-    cake.position.y = -1;
-    scene.add(cake);
-
-    // Candles (5 by default)
-    let candleGeo = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 16);
-    let candleMat = new THREE.MeshPhongMaterial({color: 0xffffff});
-    let flames = [];
-    for(let i = 0; i < 5; i++) {
-      let candle = new THREE.Mesh(candleGeo, candleMat);
-      let angle = (i/5)*Math.PI*2;
-      candle.position.set(Math.cos(angle)*2, -0.1, Math.sin(angle)*2);
-      scene.add(candle);
-
-      let flameGeo = new THREE.SphereGeometry(0.15, 8, 8);
-      let flameMat = new THREE.MeshBasicMaterial({color: 0xffa500});
-      let flame = new THREE.Mesh(flameGeo, flameMat);
-      flame.position.set(0, 0.5, 0);
-      candle.add(flame);
-      flames.push(flame);
-
-      candle.userData = { flameOut: false };
-      candle.cursor = 'pointer';
-    }
-
-    camera.position.z = 8;
-
-    window.addEventListener('click', (e) => {
-      let mouse = new THREE.Vector2(
-        (e.clientX / innerWidth) * 2 - 1,
-        -(e.clientY / innerHeight) * 2 + 1
-      );
-      let ray = new THREE.Raycaster();
-      ray.setFromCamera(mouse, camera);
-      let hits = ray.intersectObjects(scene.children, true);
-      hits.forEach(hit => {
-        let root = hit.object;
-        if (root.parent !== scene && root.parent.parent === scene) {
-          let candle = root.parent;
-          if (!candle.userData.flameOut) {
-            candle.remove(root);
-            candle.userData.flameOut = true;
-            if (flames.every(f => f.parent === null)) {
-              document.getElementById('card').classList.add('show');
-            }
-          }
-        }
-      });
-    });
-
-    function animate() {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // Music autoplay after user interaction
-    window.addEventListener('click', () => {
-      document.getElementById('bgm').play();
-    });
-  </script>
 </body>
 </html>
