@@ -1,35 +1,34 @@
 body {
   margin: 0;
-  overflow: hidden;
-  background: #fcdde9; /* Light pink background */
+  padding: 0;
+  background: #fcdde9;
   font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 80%;
-  max-width: 400px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(0);
   transition: transform 1s ease;
 }
 
 #card.show {
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
 }
 
 #card h1 {
-  margin: 0;
   font-size: 24px;
+  margin-bottom: 10px;
 }
 
 #card p {
   font-size: 18px;
-  margin-top: 10px;
+  margin: 10px 0;
 }
